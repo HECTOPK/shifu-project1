@@ -1,0 +1,4 @@
+.DS_Store
+media
+alfa/migrations
+alfa/__pycache__ blog/__pycache__

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="container">
+		<h1>Manage articles</h1>
+		<a href="{% url 'new_article_url' %}">
+			<button type="button" name="button" class="btn btn-primary w-100 rounded-0">Add article</button>
+		</a>
+		<div class="row">
+			<div class="col">
+				<ul class="list-group list-group-flush">
+					{% for article in all_articles %}
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-xl-3">
+									<a href="{% url 'article_url' article.id %}">
+										<img src="{{article.image.url}}" alt="" class="w-100">
+									</a>
+								</div>
+								<div class="col">
+									<a href="{% url 'article_url' article.id %}">
+										<h2>{{article.title}}</h2>
+									</a>
+									<p>
+										{{article.preview_text|safe}}
+									</p>
+									<div class="row">
+										<div class="col">
+											<a href="{% url 'remove_article_url' article.id %}">
+												<button type="button" name="button" class="btn btn-danger w-100 rounded-0">Delete</button>
+											</a>
+										</div>
+										<div class="col">
+											<a href="{% url 'edit_article_url' article.id %}">
+												<button type="button" name="button" class="btn btn-success w-100 rounded-0">Edit</button>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<ul class="pagination justify-content-center rounded-0">
+			<li class="page-item {% if not all_articles.has_next %}disabled{% endif %} rounded-0">
+				<a {% if all_articles.has_next %} href="?page={{all_articles.previous_page_number}}" {% endif %} class="page-link">prev</a>
+			</li>
+			<li class="page-item active rounded-0">
+				<a href="#" class="page-link">{{all_articles.number}}</a>
+			</li>
+
+			<li class="page-item {% if not all_articles.has_next %}disabled{% endif %} rounded-0">
+				<a {% if all_articles.has_next %}href="?page={{all_articles.next_page_number}}"{% endif %} class="page-link">next</a>
+			</li>
+		</ul>
+	</div>
+{% endblock %}
