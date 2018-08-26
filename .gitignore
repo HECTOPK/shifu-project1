@@ -2,3 +2,4 @@
 media
 alfa/migrations
 alfa/__pycache__ blog/__pycache__
+blog/local.py
