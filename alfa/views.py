@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 from django.core.mail import send_mail
 import sendgrid
 from sendgrid.helpers.mail import *
+from django.conf import settings
 
 
 def has_premission():
@@ -215,7 +216,7 @@ def forgot_password_page(request):
 					return render(request, template_name, context)
 				else:
 					message = 'Your password: ' + user.password
-					sg = sendgrid.SendGridAPIClient(apikey='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')
+					sg = sendgrid.SendGridAPIClient(apikey=settings.SENDGRID_API_KEY)
 					from_email = Email("passwordRecovert@vlb.com")
 					to_email = Email(user.email)
 					subject = "Your password!"
